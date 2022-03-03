@@ -9,7 +9,6 @@ function App() {
     if (event.key === "Enter") {
       axios.get(url).then((res) => {
         setData(res.data);
-        console.log(res.data);
       });
       setLocation("");
     }
@@ -39,25 +38,27 @@ function App() {
             {data.weather ? <p>{data.weather[0].main}</p> : null}
           </div>
         </div>
-        <div className="bottom">
-          <div className="feels">
-            {data.main ? (
-              <p className="bold">
-                {Math.floor(1.8 * (data.main.feels_like - 273) + 32)}°F
-              </p>
-            ) : null}
-            <p>Feels Like</p>
-          </div>
-          <div className="humidity">
-            {data.main ? <p className="bold">{data.main.humidity}%</p> : null}
+        {data.name && (
+          <div className="bottom">
+            <div className="feels">
+              {data.main ? (
+                <p className="bold">
+                  {Math.floor(1.8 * (data.main.feels_like - 273) + 32)}°F
+                </p>
+              ) : null}
+              <p>Feels Like</p>
+            </div>
+            <div className="humidity">
+              {data.main ? <p className="bold">{data.main.humidity}%</p> : null}
 
-            <p>Humidity</p>
+              <p>Humidity</p>
+            </div>
+            <div className="wind">
+              {data.wind ? <p className="bold">{data.wind.speed} MPH</p> : null}
+              <p>Wind Speed</p>
+            </div>
           </div>
-          <div className="wind">
-            {data.wind ? <p className="bold">{data.wind.speed} MPH</p> : null}
-            <p>Wind Speed</p>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );
